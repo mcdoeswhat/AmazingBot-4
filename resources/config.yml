@@ -1,0 +1,52 @@
+main:
+  URI: "ws://127.0.0.1:6700"
+  token: "111"
+  #机器人掉线自动重连间隔
+  auto_reconnect: 1
+  #API返回超时时间
+  timeout: 30
+  #机器人接收websocket信息并行处理最大任务数提醒(用于开发者调试或排除异常)
+  #机器人每个事件为单独的线程
+  #避免某个插件监听事件处理过于缓慢,影响其他插件监听机器人回复
+  #此设置为超过多少接收事件同时处理时在服务器后台输出警告,一般不会超过100
+  #看不懂默认即可
+  rec_task_tip: 100
+  #机器人发送websocket信息同时处理最大数量
+  #机器人发送时也会触发事件,发送的信息可被其他插件监听并修改
+  #参数设置解释同上
+  send_task_tip: 100
+#开启后机器人会实时输出websocket通讯
+debug: false
+#debug消息最大长度
+debug_message_max_length: 1000
+#机器人主人列表
+owners:
+  - '000000'
+#需要启用的Q群
+groups:
+  '0000000':
+    command: "sudo"
+    #是否启用绑定机制
+    enable_bind: true
+#服务器名称
+server_name: ""
+#绑定关键词
+bd: /bd
+#特殊功能关键词
+function:
+  new_player: "%server%今日新玩家"
+commands:
+  toggle_on: "开启%server%服务器 "
+  toggle_off: "关闭%server%服务器"
+  add: "添加%server%管理员 "
+  remove: "删除%server%管理员 "
+messages:
+  toggle_on: "%server% 服务器已在本群启用 指令 %label%"
+  toggle_off: "%server% 服务器已在本群关闭"
+  log_command: "&aQQ用户: %user% 执行了 %cmd% 命令"
+  remove: "%server%服务器已移除管理员%user%"
+  add: "%server%服务器已添加管理员%user%"
+  bind:
+    - "&b服务器Q群内的用户%user%请求与当前账号绑定"
+    - "&b请在聊天栏中输入 &a确认绑定 %user% &b完成绑定"
+    - "&c如果不是本人操作请忽略此消息!"
