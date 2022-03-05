@@ -7,16 +7,16 @@ public class ForwardMessage {
 
     protected JsonArray messages = new JsonArray();
 
-    public JsonArray getMessages() {
-        return messages;
-    }
-
-    public ForwardMessage(JsonArray messages){
+    public ForwardMessage(JsonArray messages) {
         this.messages = messages;
     }
 
-    public ForwardMessage(){
+    public ForwardMessage() {
 
+    }
+
+    public JsonArray getMessages() {
+        return messages;
     }
 
     public ForwardMessage add(Long uin, String name, String content) {

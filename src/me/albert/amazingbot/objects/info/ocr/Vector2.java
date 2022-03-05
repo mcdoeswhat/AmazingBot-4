@@ -1,7 +1,6 @@
 package me.albert.amazingbot.objects.info.ocr;
 
-public class Vector2
-{
+public class Vector2 {
     protected float x;
     protected float y;
 

@@ -46,7 +46,7 @@ public class ApiAction {
         return result.get("status").getAsString().equals("ok");
     }
 
-    public JsonElement requestAndGetData(){
+    public JsonElement requestAndGetData() {
         result = Bot.getApi().sendRawData(getData());
         if (!getStatus()) return null;
         return result.get("data");

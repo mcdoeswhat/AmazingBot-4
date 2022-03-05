@@ -1,0 +1,11 @@
+#是否启用 更改后请重启
+enable: false
+#mysql配置
+storage:
+  username: root
+  password: pass
+  host: localhost
+  port: 3306
+  database: amazingbot
+  table: binds
+  useSSL: false

@@ -90,8 +90,8 @@ public class OnCommand implements Listener {
         if (!isAdmin(e.getUserID())) {
             return;
         }
-        if (e.getMsg().equals("测试")){
-            e.response("您的加群时间: "+e.getMember().getJoinTime());
+        if (e.getMsg().equals("测试")) {
+            e.response("您的加群时间: " + e.getMember().getJoinTime());
         }
         FileConfiguration config = AmazingBot.getInstance().getConfig();
         String serverName = config.getString("server_name");

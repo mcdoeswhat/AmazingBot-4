@@ -1,7 +1,6 @@
 package me.albert.amazingbot.utils.command;
 
 import me.albert.amazingbot.AmazingBot;
-
 import me.albert.amazingbot.events.message.MessageReceiveEvent;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;

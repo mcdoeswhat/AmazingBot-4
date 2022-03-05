@@ -7,15 +7,15 @@ import me.albert.amazingbot.events.message.GroupMessageEvent;
 import me.albert.amazingbot.events.message.MessageReceiveEvent;
 import me.albert.amazingbot.events.message.PrivateMessageEvent;
 import me.albert.amazingbot.events.notice.NoticeEvent;
-import me.albert.amazingbot.events.notice.other.EssenceMessageEvent;
-import me.albert.amazingbot.events.notice.notify.PokeEvent;
-import me.albert.amazingbot.events.notice.other.ClientStatusChangeEvent;
 import me.albert.amazingbot.events.notice.file.OfflineFileReceiveEvent;
 import me.albert.amazingbot.events.notice.friend.FriendRecallEvent;
 import me.albert.amazingbot.events.notice.group.*;
 import me.albert.amazingbot.events.notice.notify.GroupHonerChangeEvent;
 import me.albert.amazingbot.events.notice.notify.GroupLuckyKingEvent;
 import me.albert.amazingbot.events.notice.notify.NotifyEvent;
+import me.albert.amazingbot.events.notice.notify.PokeEvent;
+import me.albert.amazingbot.events.notice.other.ClientStatusChangeEvent;
+import me.albert.amazingbot.events.notice.other.EssenceMessageEvent;
 import me.albert.amazingbot.events.request.FriendRequestEvent;
 import me.albert.amazingbot.events.request.GroupRequestJoinEvent;
 import me.albert.amazingbot.events.request.RequestEvent;
@@ -26,14 +26,14 @@ public class BotEventParser {
 
     private final JsonObject object;
 
-    public BotEventParser(JsonObject object){
+    public BotEventParser(JsonObject object) {
         this.object = object;
     }
 
     public ABEvent parseEvent() {
         ABEvent abEvent = parse(ABEvent.class);
         String post_type = abEvent.getPostType();
-        switch (post_type){
+        switch (post_type) {
             case "message":
                 return parseMessageEvent();
             case "notice":
@@ -44,13 +44,13 @@ public class BotEventParser {
         return abEvent;
     }
 
-    public <T extends ABEvent> T parse(Class<T> eventClass){
-        return gson.fromJson(object,eventClass);
+    public <T extends ABEvent> T parse(Class<T> eventClass) {
+        return gson.fromJson(object, eventClass);
     }
 
-    private RequestEvent parseRequestEvent(){
+    private RequestEvent parseRequestEvent() {
         RequestEvent requestEvent = parse(RequestEvent.class);
-        switch (requestEvent.getRequestType()){
+        switch (requestEvent.getRequestType()) {
             case "group":
                 return parse(GroupRequestJoinEvent.class);
             case "friend":
@@ -73,7 +73,7 @@ public class BotEventParser {
         return notifyEvent;
     }
 
-    private NoticeEvent parseNoticeEvent(){
+    private NoticeEvent parseNoticeEvent() {
         NoticeEvent noticeEvent = parse(NoticeEvent.class);
         String notice_type = noticeEvent.getNoticeType();
         switch (notice_type) {
@@ -106,8 +106,7 @@ public class BotEventParser {
     }
 
 
-
-    private MessageReceiveEvent parseMessageEvent(){
+    private MessageReceiveEvent parseMessageEvent() {
         MessageReceiveEvent messageReceiveEvent = parse(MessageReceiveEvent.class);
         String messageType = messageReceiveEvent.getMessageType();
         switch (messageType) {

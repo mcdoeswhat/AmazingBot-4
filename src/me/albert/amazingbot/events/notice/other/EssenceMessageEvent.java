@@ -16,7 +16,7 @@ public class EssenceMessageEvent extends NoticeEvent {
         return sub_type;
     }
 
-    public boolean isAdd(){
+    public boolean isAdd() {
         return sub_type.equals("add");
     }
 
@@ -36,8 +36,8 @@ public class EssenceMessageEvent extends NoticeEvent {
         return group_id;
     }
 
-    public Group getGroup(boolean... noCache){
-        return Bot.getApi().getGroupInfo(group_id,noCache.length > 0);
+    public Group getGroup(boolean... noCache) {
+        return Bot.getApi().getGroupInfo(group_id, noCache.length > 0);
     }
 
 }

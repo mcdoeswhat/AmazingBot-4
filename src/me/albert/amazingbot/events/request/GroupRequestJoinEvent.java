@@ -22,7 +22,7 @@ public class GroupRequestJoinEvent extends RequestEvent {
         return comment;
     }
 
-    public boolean isInvite(){
+    public boolean isInvite() {
         return sub_type.equals("invite");
     }
 
@@ -30,8 +30,8 @@ public class GroupRequestJoinEvent extends RequestEvent {
         return flag;
     }
 
-    public boolean approve(boolean approve,String reason){
-        return Bot.getApi().setGroupAddRequest(flag,sub_type,approve,reason);
+    public boolean approve(boolean approve, String reason) {
+        return Bot.getApi().setGroupAddRequest(flag, sub_type, approve, reason);
     }
 
     public String getSubType() {

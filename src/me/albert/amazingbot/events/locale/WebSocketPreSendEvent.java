@@ -6,7 +6,7 @@ public class WebSocketPreSendEvent extends LocaleEvent {
 
     private JsonObject data;
 
-    public WebSocketPreSendEvent(JsonObject data){
+    public WebSocketPreSendEvent(JsonObject data) {
         this.data = data;
     }
 

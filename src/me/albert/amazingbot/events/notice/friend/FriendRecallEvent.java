@@ -17,7 +17,7 @@ public class FriendRecallEvent extends NoticeEvent {
         return message_id;
     }
 
-    public Message getMessage(){
+    public Message getMessage() {
         return Bot.getApi().getMsg(message_id);
     }
 

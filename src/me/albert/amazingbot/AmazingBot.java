@@ -32,6 +32,9 @@ public class AmazingBot extends JavaPlugin {
         return mysqlSettings;
     }
 
+    public static boolean getDebug() {
+        return instance.getConfig().getBoolean("debug");
+    }
 
     @Override
     public void onEnable() {
@@ -63,10 +66,6 @@ public class AmazingBot extends JavaPlugin {
         }
         data.save();
         Bot.stop();
-    }
-
-    public static boolean getDebug(){
-        return instance.getConfig().getBoolean("debug");
     }
 
     @Override

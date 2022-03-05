@@ -193,7 +193,8 @@ public class BotAPI {
 
     /**
      * 退出群
-     * @param groupID 群号
+     *
+     * @param groupID   群号
      * @param isDismiss 是否解散(默认false,为群主时true会解散群)
      */
     public boolean setGroupLeave(Long groupID, boolean isDismiss) {

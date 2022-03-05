@@ -1,0 +1,9 @@
+name: AmazingBot
+version: 4.0.0
+author: Albert
+main: me.albert.amazingbot.AmazingBot
+api-version: 1.13
+commands:
+  amazingbot:
+    aliases: [ amb ]
+    permission: amazingbot.admin

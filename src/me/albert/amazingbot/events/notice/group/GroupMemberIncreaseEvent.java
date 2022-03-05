@@ -1,11 +1,11 @@
 package me.albert.amazingbot.events.notice.group;
 
-public class GroupMemberIncreaseEvent extends GroupNoticeEvent{
+public class GroupMemberIncreaseEvent extends GroupNoticeEvent {
 
     protected String sub_type;
     protected long operator_id;
 
-    public boolean isInvite(){
+    public boolean isInvite() {
         return sub_type.equals("invite");
     }
 

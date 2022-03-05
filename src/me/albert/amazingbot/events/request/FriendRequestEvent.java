@@ -20,7 +20,7 @@ public class FriendRequestEvent extends RequestEvent {
         return flag;
     }
 
-    public boolean approve(boolean approve,String remark){
-        return Bot.getApi().setFriendAddRequest(flag,approve,remark);
+    public boolean approve(boolean approve, String remark) {
+        return Bot.getApi().setFriendAddRequest(flag, approve, remark);
     }
 }

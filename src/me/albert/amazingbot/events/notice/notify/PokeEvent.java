@@ -25,7 +25,7 @@ public class PokeEvent extends NotifyEvent {
         return group_id;
     }
 
-    public Group getGroup(boolean... noCache){
-        return Bot.getApi().getGroupInfo(group_id,noCache.length > 0);
+    public Group getGroup(boolean... noCache) {
+        return Bot.getApi().getGroupInfo(group_id, noCache.length > 0);
     }
 }

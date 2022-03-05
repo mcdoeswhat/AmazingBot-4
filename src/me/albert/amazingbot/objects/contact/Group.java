@@ -27,16 +27,16 @@ public class Group {
         return Bot.getApi().getGroupHonerInfo(group_id);
     }
 
-    public List<EssenceMessage> getEssenceMsgList(){
+    public List<EssenceMessage> getEssenceMsgList() {
         return Bot.getApi().getEssenceMsgList(group_id);
     }
 
-    public long sendMsg(String msg,boolean... auto_escape){
-        return Bot.getApi().sendGroupMsg(group_id,msg,auto_escape);
+    public long sendMsg(String msg, boolean... auto_escape) {
+        return Bot.getApi().sendGroupMsg(group_id, msg, auto_escape);
     }
 
     /**
-    发送群公告
+     * 发送群公告
      */
     public boolean sendNotice(String content) {
         return Bot.getApi().sendGroupNotice(group_id, content);

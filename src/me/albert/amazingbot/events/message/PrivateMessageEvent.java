@@ -6,11 +6,11 @@ public class PrivateMessageEvent extends MessageReceiveEvent {
 
     protected int temp_source = -1;
 
-    public int getTempSource(){
+    public int getTempSource() {
         return temp_source;
     }
 
-    public boolean isTempMessage(){
+    public boolean isTempMessage() {
         return temp_source != -1;
     }
 

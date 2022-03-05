@@ -3,10 +3,6 @@ package me.albert.amazingbot.utils;
 import me.albert.amazingbot.AmazingBot;
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 

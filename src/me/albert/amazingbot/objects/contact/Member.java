@@ -85,8 +85,8 @@ public class Member {
         return shut_up_timestamp;
     }
 
-    public long sendMsg(String msg,boolean... auto_escape){
-        return Bot.getApi().sendPrivateMsg(user_id,group_id,msg,auto_escape);
+    public long sendMsg(String msg, boolean... auto_escape) {
+        return Bot.getApi().sendPrivateMsg(user_id, group_id, msg, auto_escape);
     }
 
 

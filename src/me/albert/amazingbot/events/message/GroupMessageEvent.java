@@ -28,32 +28,32 @@ public class GroupMessageEvent extends MessageReceiveEvent {
         return group_id;
     }
 
-    public Group getGroup(boolean... noCache){
-        return Bot.getApi().getGroupInfo(group_id,noCache.length > 0);
+    public Group getGroup(boolean... noCache) {
+        return Bot.getApi().getGroupInfo(group_id, noCache.length > 0);
     }
 
-    public Member getMember(boolean... noCache){
-        return Bot.getApi().getMemberInfo(group_id,user_id,noCache.length > 0);
+    public Member getMember(boolean... noCache) {
+        return Bot.getApi().getMemberInfo(group_id, user_id, noCache.length > 0);
     }
 
-    public boolean mute(int duration){
-        return Bot.getApi().groupMute(group_id,user_id,duration);
+    public boolean mute(int duration) {
+        return Bot.getApi().groupMute(group_id, user_id, duration);
     }
 
-    public boolean kick(boolean reject_add_request){
-        return Bot.getApi().groupKick(group_id,user_id,reject_add_request);
+    public boolean kick(boolean reject_add_request) {
+        return Bot.getApi().groupKick(group_id, user_id, reject_add_request);
     }
 
-    public boolean setGroupCard(String card){
-        return Bot.getApi().setGroupCard(group_id,user_id,card);
+    public boolean setGroupCard(String card) {
+        return Bot.getApi().setGroupCard(group_id, user_id, card);
     }
 
-    public boolean setAsEssenceMsg(){
+    public boolean setAsEssenceMsg() {
         return Bot.getApi().setEssenceMsg(this.message_id);
     }
 
-    public boolean setGroupSpecialTitle(String title){
-        return Bot.getApi().setGroupSpecialTitle(group_id,user_id,title);
+    public boolean setGroupSpecialTitle(String title) {
+        return Bot.getApi().setGroupSpecialTitle(group_id, user_id, title);
     }
 
     @Override

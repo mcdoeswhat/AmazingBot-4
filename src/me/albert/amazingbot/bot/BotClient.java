@@ -23,20 +23,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class BotClient extends WebSocketClient {
 
+    private static final AtomicInteger recTask = new AtomicInteger(0);
+    private static final AtomicInteger sendTask = new AtomicInteger(0);
+    private static AmazingBot instance;
+    private final ConcurrentHashMap<UUID, CompletableFuture<JsonObject>> responseMap = new ConcurrentHashMap<>();
     public int taskID;
 
-    private static AmazingBot instance;
-
-    private static final AtomicInteger recTask = new AtomicInteger(0);
-
-    private static final AtomicInteger sendTask = new AtomicInteger(0);
-
-    private final ConcurrentHashMap<UUID, CompletableFuture<JsonObject>> responseMap = new ConcurrentHashMap<>();
-
-
-    private static void callEvent(Event event) {
-        Bukkit.getPluginManager().callEvent(event);
-    }
 
     private BotClient(URI serverURI) {
         super(serverURI);
@@ -45,6 +37,10 @@ public class BotClient extends WebSocketClient {
     public BotClient(URI serverUri, Map<String, String> httpHeaders) {
         super(serverUri, httpHeaders);
         instance = AmazingBot.getInstance();
+    }
+
+    private static void callEvent(Event event) {
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public static void main(String[] args) throws URISyntaxException {
