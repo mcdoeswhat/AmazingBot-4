@@ -80,7 +80,7 @@ public class MessageReceiveEvent extends ABEvent {
     }
 
     public long response(BufferedImage bufferedImage) {
-        return response(MsgUtil.bufferedImgToImg(bufferedImage));
+        return response(MsgUtil.bufferedImgToMsg(bufferedImage));
     }
 
 

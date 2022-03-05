@@ -1,6 +1,7 @@
 package me.albert.amazingbot.utils.command;
 
 import me.albert.amazingbot.AmazingBot;
+import me.albert.amazingbot.bot.Bot;
 import me.albert.amazingbot.events.message.MessageReceiveEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -19,13 +20,15 @@ import java.util.Optional;
 import java.util.Set;
 
 public class ConsoleSenderLegacy implements ConsoleCommandSender {
-    private final MessageReceiveEvent event;
+    private final long contactID;
+    private final boolean isGroup;
     private final ArrayList<String> output = new ArrayList<>();
     private final ArrayList<String> tempOutPut = new ArrayList<>();
     private BukkitTask task = null;
 
-    public ConsoleSenderLegacy(MessageReceiveEvent event) {
-        this.event = event;
+    public ConsoleSenderLegacy(long contactID,boolean isGroup) {
+        this.contactID = contactID;
+        this.isGroup = isGroup;
     }
 
     private Optional<ConsoleCommandSender> get() {
@@ -69,7 +72,11 @@ public class ConsoleSenderLegacy implements ConsoleCommandSender {
                 }
                 String msg = response.toString().trim();
                 if (!msg.isEmpty()) {
-                    event.response(msg);
+                    if (isGroup){
+                        Bot.getApi().sendGroupMsg(contactID,msg,true);
+                    } else {
+                        Bot.getApi().sendPrivateMsg(contactID,msg,true);
+                    }
                     output.clear();
                 }
             }

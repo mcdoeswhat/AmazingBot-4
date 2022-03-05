@@ -167,7 +167,7 @@ public class MsgUtil {
     }
 
 
-    public static String bufferedImgToImg(BufferedImage image) {
+    public static String bufferedImgToMsg(BufferedImage image) {
         return getImageMsg("base64://" + imageToBase64(image));
     }
 
