@@ -70,12 +70,13 @@ public class OnCommand implements Listener {
             return;
         }
         String label = getLabel(e.getGroupID());
-        if (label == null || !e.getMsg().startsWith(label)) {
+        String msg = e.getTextMessage();
+        if (label == null || !msg.startsWith(label)) {
             return;
         }
         e.response("命令已提交");
         Bukkit.getScheduler().runTaskAsynchronously(AmazingBot.getInstance(), () -> {
-            String cmd = e.getMsg().substring(label.length());
+            String cmd = msg.substring(label.length());
             CommandSender sender = getSender(e.getGroupID(),true);
             Bukkit.getScheduler().runTask(AmazingBot.getInstance(), () -> Bukkit.dispatchCommand(sender, cmd));
             String log = AmazingBot.getInstance().getConfig().getString("messages.log_command")
@@ -89,9 +90,6 @@ public class OnCommand implements Listener {
     public void onSwitch(GroupMessageEvent e) {
         if (!isAdmin(e.getUserID())) {
             return;
-        }
-        if (e.getMsg().equals("测试")) {
-            e.response("您的加群时间: " + e.getMember().getJoinTime());
         }
         FileConfiguration config = AmazingBot.getInstance().getConfig();
         String serverName = config.getString("server_name");

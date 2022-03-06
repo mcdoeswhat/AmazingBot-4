@@ -109,14 +109,14 @@ public class MsgUtil {
         return "[CQ:xml,data=" + xml + "]";
     }
 
-    public static String formatString(String str) {
+    public static String formatCQCode(String str) {
         return str.replace("&", "&amp;")
                 .replace("[", "&#91;")
                 .replace("]", "&#93;")
                 .replace(",", "&#44;");
     }
 
-    public static String deFormatString(String str) {
+    public static String deFormatCQCode(String str) {
         return str.replace("&amp;", "&")
                 .replace("&#91;", "[")
                 .replace("&#93;", "]")

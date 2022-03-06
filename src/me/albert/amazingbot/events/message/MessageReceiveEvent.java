@@ -38,8 +38,12 @@ public class MessageReceiveEvent extends ABEvent {
         return message;
     }
 
+
+    /**
+     * @return 消息中包含的所有纯文本信息
+     */
     public String getTextMessage() {
-        return message.replaceAll("(\\[)([\\s\\S]*?)(])", "");
+        return MsgUtil.deFormatCQCode(message.replaceAll("(\\[)([\\s\\S]*?)(])", "\n"));
     }
 
     public List<String> getImageIDList() {
