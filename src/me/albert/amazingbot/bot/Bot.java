@@ -1,6 +1,7 @@
 package me.albert.amazingbot.bot;
 
 import me.albert.amazingbot.AmazingBot;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.net.URI;
@@ -31,6 +32,7 @@ public class Bot {
     }
 
     public static void stop() {
+        Bukkit.getScheduler().cancelTask(client.taskID);
         client.close();
     }
 

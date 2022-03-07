@@ -82,7 +82,7 @@ public class OnCommand implements Listener {
             String log = AmazingBot.getInstance().getConfig().getString("messages.log_command")
                     .replace("%user%", String.valueOf(e.getUserID())).replace("%cmd%", cmd)
                     .replace("&", "§");
-            Bukkit.getLogger().info(log);
+            AmazingBot.getInstance().getLogger().info(log);
         });
     }
 
