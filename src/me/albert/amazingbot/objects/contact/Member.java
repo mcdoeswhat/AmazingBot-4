@@ -97,5 +97,13 @@ public class Member {
         return Bot.getApi().groupKick(group_id, user_id, rejectAddRequest);
     }
 
+    public String getName() {
+        return card.trim().isEmpty() ? nickname : card;
+    }
+
+    public String getDisplayName() {
+        return card.isEmpty() ? nickname : card;
+    }
+
 
 }

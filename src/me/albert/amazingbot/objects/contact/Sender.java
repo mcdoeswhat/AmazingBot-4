@@ -55,4 +55,12 @@ public class Sender {
     public String getCard() {
         return card;
     }
+
+    public String getName() {
+        return card.trim().isEmpty() ? nickname : card;
+    }
+
+    public String getDisplayName() {
+        return card.isEmpty() ? nickname : card;
+    }
 }
