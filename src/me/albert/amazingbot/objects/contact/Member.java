@@ -89,5 +89,13 @@ public class Member {
         return Bot.getApi().sendPrivateMsg(user_id, group_id, msg, auto_escape);
     }
 
+    public boolean mute(int duration) {
+        return Bot.getApi().groupMute(group_id, user_id, duration);
+    }
+
+    public boolean kick(boolean rejectAddRequest) {
+        return Bot.getApi().groupKick(group_id, user_id, rejectAddRequest);
+    }
+
 
 }

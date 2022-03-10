@@ -66,6 +66,18 @@ public class Group {
         return Bot.getApi().getGroupMemberList(group_id);
     }
 
+    public boolean kick(long userID, boolean rejectAddRequest) {
+        return Bot.getApi().groupKick(group_id, userID, rejectAddRequest);
+    }
+
+    public boolean mute(int duration, long user_id) {
+        return Bot.getApi().groupMute(group_id, user_id, duration);
+    }
+
+    public Member getMember(long userID, boolean... noCache) {
+        return Bot.getApi().getMemberInfo(group_id, userID, noCache.length > 0);
+    }
+
     public boolean toggleWholeMute(boolean enable) {
         return Bot.getApi().toggleGroupWholeMute(group_id, enable);
     }

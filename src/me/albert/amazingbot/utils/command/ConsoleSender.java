@@ -2,7 +2,6 @@ package me.albert.amazingbot.utils.command;
 
 import me.albert.amazingbot.AmazingBot;
 import me.albert.amazingbot.bot.Bot;
-import me.albert.amazingbot.events.message.MessageReceiveEvent;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -28,7 +27,7 @@ public class ConsoleSender implements ConsoleCommandSender {
     private final ConsoleSender instance;
     private BukkitTask task = null;
 
-    public ConsoleSender(long contactID,boolean isGroup) {
+    public ConsoleSender(long contactID, boolean isGroup) {
         this.contactID = contactID;
         this.isGroup = isGroup;
         instance = this;
@@ -69,10 +68,10 @@ public class ConsoleSender implements ConsoleCommandSender {
                 }
                 String msg = response.toString().trim();
                 if (!msg.isEmpty()) {
-                    if (isGroup){
-                        Bot.getApi().sendGroupMsg(contactID,msg,true);
+                    if (isGroup) {
+                        Bot.getApi().sendGroupMsg(contactID, msg, true);
                     } else {
-                        Bot.getApi().sendPrivateMsg(contactID,msg,true);
+                        Bot.getApi().sendPrivateMsg(contactID, msg, true);
                     }
                     output.clear();
                 }

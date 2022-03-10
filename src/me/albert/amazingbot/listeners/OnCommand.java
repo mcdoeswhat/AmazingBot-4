@@ -2,7 +2,6 @@ package me.albert.amazingbot.listeners;
 
 import me.albert.amazingbot.AmazingBot;
 import me.albert.amazingbot.events.message.GroupMessageEvent;
-import me.albert.amazingbot.events.message.MessageReceiveEvent;
 import me.albert.amazingbot.utils.command.ConsoleSender;
 import me.albert.amazingbot.utils.command.ConsoleSenderLegacy;
 import org.bukkit.Bukkit;
@@ -40,13 +39,13 @@ public class OnCommand implements Listener {
         return AmazingBot.getInstance().getConfig().getString("groups." + groupID + ".command") + " ";
     }
 
-    public static CommandSender getSender(long contactID,boolean isGroup) {
+    public static CommandSender getSender(long contactID, boolean isGroup) {
         CommandSender sender = null;
         if (spigot == 1) {
-            sender = new ConsoleSenderLegacy(contactID,isGroup);
+            sender = new ConsoleSenderLegacy(contactID, isGroup);
         }
         if (spigot == 2) {
-            sender = new ConsoleSender(contactID,isGroup);
+            sender = new ConsoleSender(contactID, isGroup);
         }
         if (spigot == 0) {
             try {
@@ -54,11 +53,11 @@ public class OnCommand implements Listener {
             } catch (Exception ignored) {
                 spigot = 1;
                 AmazingBot.getInstance().getLogger().info("§a检测到旧版本Minecraft,启用旧版本指令信息返回...");
-                sender = new ConsoleSenderLegacy(contactID,isGroup);
+                sender = new ConsoleSenderLegacy(contactID, isGroup);
             }
             if (sender == null) {
                 spigot = 2;
-                sender = new ConsoleSender(contactID,isGroup);
+                sender = new ConsoleSender(contactID, isGroup);
             }
         }
         return sender;
@@ -77,7 +76,7 @@ public class OnCommand implements Listener {
         e.response("命令已提交");
         Bukkit.getScheduler().runTaskAsynchronously(AmazingBot.getInstance(), () -> {
             String cmd = msg.substring(label.length());
-            CommandSender sender = getSender(e.getGroupID(),true);
+            CommandSender sender = getSender(e.getGroupID(), true);
             Bukkit.getScheduler().runTask(AmazingBot.getInstance(), () -> Bukkit.dispatchCommand(sender, cmd));
             String log = AmazingBot.getInstance().getConfig().getString("messages.log_command")
                     .replace("%user%", String.valueOf(e.getUserID())).replace("%cmd%", cmd)

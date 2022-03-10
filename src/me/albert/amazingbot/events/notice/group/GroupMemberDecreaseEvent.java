@@ -24,4 +24,5 @@ public class GroupMemberDecreaseEvent extends GroupNoticeEvent {
     public long getOperatorID() {
         return operator_id;
     }
+
 }
