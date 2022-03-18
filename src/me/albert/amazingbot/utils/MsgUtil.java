@@ -29,14 +29,17 @@ public class MsgUtil {
      * @return CQ码
      */
     public static String getImageMsg(String file) {
+        file = formatCQCode(file);
         return "[CQ:image,file=" + file + "]";
     }
 
     public static String getRecordMsg(String file) {
+        file = formatCQCode(file);
         return "[CQ:record,file=" + file + "]";
     }
 
     public static String getVideoMsg(String file) {
+        file = formatCQCode(file);
         return "[CQ:video,file=" + file + "]";
     }
 
@@ -45,6 +48,7 @@ public class MsgUtil {
     }
 
     public static String getShareMsg(String url) {
+        url = formatCQCode(url);
         return "[CQ:share,url=" + url + "]";
     }
 
@@ -53,6 +57,7 @@ public class MsgUtil {
      * @param id   歌曲 ID
      */
     public static String getMusicMsg(String type, String id) {
+        type = formatCQCode(type);
         return "[CQ:music,type=" + type + ",id=" + id + "]";
     }
 
@@ -64,7 +69,12 @@ public class MsgUtil {
      * @param image   图片 URL
      */
     public static String getCustomMusicMsg(String url, String audio, String title, String content, String image) {
-        return String.format("CQ:music,type=custom,url=%s,audio=%s,title=%s,content=%s,image=%s", url, audio, title, content, image);
+        url = formatCQCode(url);
+        audio = formatCQCode(audio);
+        title = formatCQCode(title);
+        content = formatCQCode(content);
+        image = formatCQCode(image);
+        return String.format("[CQ:music,type=custom,url=%s,audio=%s,title=%s,content=%s,image=%s]", url, audio, title, content, image);
     }
 
 
@@ -76,6 +86,7 @@ public class MsgUtil {
      * @param seq  起始消息序号, 可通过 Bot.getApi.getMessage().getMessageSeq 获得
      */
     public static String getReplyMsg(String text, long id, long qq, long time, long seq) {
+        text = formatCQCode(text);
         return String.format("[CQ:reply,text=%s,id=%s,qq=%s,time=%s,seq=%s]", text, id, qq, time, seq);
     }
 
@@ -106,6 +117,7 @@ public class MsgUtil {
     }
 
     public static String getXMLMsg(String xml) {
+        xml = formatCQCode(xml);
         return "[CQ:xml,data=" + xml + "]";
     }
 
@@ -134,6 +146,7 @@ public class MsgUtil {
      * @param resid 建议填0, 走小程序通道, 其他走富文本通道发送
      */
     public static String getJsonMsg(String json, int resid) {
+        formatCQCode(json);
         return "[CQ:json,data=" + json + ",resid=" + resid + "]";
     }
 
@@ -150,9 +163,12 @@ public class MsgUtil {
      *                  xml 接口的消息都存在风控风险, 请自行兼容发送失败后的处理 ( 可以失败后走普通图片模式 )
      */
     public static String getCardImg(String file, int minwidth, int minheight, int maxwidth, int maxheight, String source, String icon) {
+        file = formatCQCode(file);
+        source = formatCQCode(source);
+        icon = formatCQCode(icon);
         return String.format(
                 "[CQ:cardimage,file=%s,minwidth=%s,minheight=%s," +
-                        "maxwidth=%s,maxheight=%s,source=%s,icon=%s", file, minwidth, minheight, maxwidth, maxheight, source, icon);
+                        "maxwidth=%s,maxheight=%s,source=%s,icon=%s]", file, minwidth, minheight, maxwidth, maxheight, source, icon);
     }
 
     /**
@@ -163,6 +179,7 @@ public class MsgUtil {
      * @param msg 内容
      */
     public static String getTTSMsg(String msg) {
+        msg = formatCQCode(msg);
         return "[CQ:tts,text=" + msg + "]";
     }
 
