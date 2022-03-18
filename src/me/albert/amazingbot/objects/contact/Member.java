@@ -97,6 +97,26 @@ public class Member {
         return Bot.getApi().groupKick(group_id, user_id, rejectAddRequest);
     }
 
+    public boolean setCard(String card) {
+        return Bot.getApi().setGroupCard(group_id, user_id, card);
+    }
+
+    public boolean setSpecialTitle(String title) {
+        return Bot.getApi().setGroupSpecialTitle(group_id, user_id, title);
+    }
+
+    public boolean setAdmin(boolean enable) {
+        return Bot.getApi().setGroupAdmin(group_id, user_id, enable);
+    }
+
+    public boolean isAdmin() {
+        return role.equals("admin");
+    }
+
+    public boolean isOwner() {
+        return role.equals("owner");
+    }
+
     public String getName() {
         return card.trim().isEmpty() ? nickname : card;
     }
