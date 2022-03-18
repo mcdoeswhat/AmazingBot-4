@@ -19,7 +19,7 @@ public class OnCommand implements Listener {
     public static int spigot = 0;
 
     private static boolean isAdmin(Long userID) {
-        return AmazingBot.getInstance().getConfig().getStringList("owners").contains(String.valueOf(userID));
+        return AmazingBot.getInstance().getConfig().getLongList("owners").contains(userID);
     }
 
     private static boolean hasGroup(Long groupID) {
@@ -64,30 +64,28 @@ public class OnCommand implements Listener {
     }
 
     @EventHandler
-    public void onCommand(GroupMessageEvent e) {
-        if (!isAdmin(e.getUserID())) {
+    public void onCommand(GroupMessageEvent event) {
+        if (!isAdmin(event.getUserID())) {
             return;
         }
-        String label = getLabel(e.getGroupID());
-        String msg = e.getTextMessage();
+        String label = getLabel(event.getGroupID());
+        String msg = event.getTextMessage();
         if (label == null || !msg.startsWith(label)) {
             return;
         }
-        e.response("命令已提交");
-        Bukkit.getScheduler().runTaskAsynchronously(AmazingBot.getInstance(), () -> {
-            String cmd = msg.substring(label.length());
-            CommandSender sender = getSender(e.getGroupID(), true);
-            Bukkit.getScheduler().runTask(AmazingBot.getInstance(), () -> Bukkit.dispatchCommand(sender, cmd));
-            String log = AmazingBot.getInstance().getConfig().getString("messages.log_command")
-                    .replace("%user%", String.valueOf(e.getUserID())).replace("%cmd%", cmd)
-                    .replace("&", "§");
-            AmazingBot.getInstance().getLogger().info(log);
-        });
+        event.response("命令已提交");
+        String cmd = msg.substring(label.length());
+        CommandSender sender = getSender(event.getGroupID(), true);
+        Bukkit.getScheduler().runTask(AmazingBot.getInstance(), () -> Bukkit.dispatchCommand(sender, cmd));
+        String log = AmazingBot.getInstance().getConfig().getString("messages.log_command")
+                .replace("%user%", String.valueOf(event.getUserID())).replace("%cmd%", cmd)
+                .replace("&", "§");
+        AmazingBot.getInstance().getLogger().info(log);
     }
 
     @EventHandler
-    public void onSwitch(GroupMessageEvent e) {
-        if (!isAdmin(e.getUserID())) {
+    public void onSwitch(GroupMessageEvent event) {
+        if (!isAdmin(event.getUserID())) {
             return;
         }
         FileConfiguration config = AmazingBot.getInstance().getConfig();
@@ -95,28 +93,28 @@ public class OnCommand implements Listener {
         String label = config.getString("commands.toggle_on").replace("%server%", serverName);
         String off = config.getString("commands.toggle_off");
         off = off.replace("%server%", serverName);
-        if (e.getMsg().equalsIgnoreCase(off) && hasGroup(e.getGroupID())) {
-            config.set("groups." + e.getGroupID(), null);
+        if (event.getMsg().equalsIgnoreCase(off) && hasGroup(event.getGroupID())) {
+            config.set("groups." + event.getGroupID(), null);
             AmazingBot.getInstance().saveConfig();
             String toggle_off = config.getString("messages.toggle_off").replace("%server%", serverName);
-            e.response(toggle_off);
+            event.response(toggle_off);
             return;
         }
-        if (e.getMsg().startsWith(label)) {
-            if (!hasGroup(e.getGroupID())) {
-                config.set("groups." + e.getGroupID() + ".command", e.getMsg().substring(label.length()));
-                config.set("groups." + e.getGroupID() + ".enable_bind", false);
+        if (event.getMsg().startsWith(label)) {
+            if (!hasGroup(event.getGroupID())) {
+                config.set("groups." + event.getGroupID() + ".command", event.getMsg().substring(label.length()));
+                config.set("groups." + event.getGroupID() + ".enable_bind", false);
                 AmazingBot.getInstance().saveConfig();
                 String toggle_on = config.getString("messages.toggle_on").replace("%server%", serverName)
-                        .replace("%label%", e.getMsg().substring(label.length()));
-                e.response(toggle_on);
+                        .replace("%label%", event.getMsg().substring(label.length()));
+                event.response(toggle_on);
             }
         }
     }
 
     @EventHandler
-    public void onAddRemove(GroupMessageEvent e) {
-        if (!isAdmin(e.getUserID())) {
+    public void onAddRemove(GroupMessageEvent event) {
+        if (!isAdmin(event.getUserID())) {
             return;
         }
         FileConfiguration config = AmazingBot.getInstance().getConfig();
@@ -124,8 +122,8 @@ public class OnCommand implements Listener {
         String add = config.getString("commands.add").replace("%server%", serverName);
         String remove = config.getString("commands.remove").replace("%server%", serverName);
         String userID;
-        if (e.getMsg().startsWith(add)) {
-            userID = e.getMsg().substring(add.length());
+        if (event.getMsg().startsWith(add)) {
+            userID = event.getMsg().substring(add.length());
             List<String> admins = config.getStringList("owners");
             admins.add(userID);
             config.set("owners", admins);
@@ -133,11 +131,11 @@ public class OnCommand implements Listener {
             String msg = config.getString("messages.add")
                     .replace("%server%", serverName)
                     .replace("%user%", userID);
-            e.response(msg);
+            event.response(msg);
             return;
         }
-        if (e.getMsg().startsWith(remove)) {
-            userID = e.getMsg().substring(add.length());
+        if (event.getMsg().startsWith(remove)) {
+            userID = event.getMsg().substring(add.length());
             List<String> admins = config.getStringList("owners");
             admins.remove(userID);
             config.set("owners", admins);
@@ -145,7 +143,7 @@ public class OnCommand implements Listener {
             String msg = config.getString("messages.remove")
                     .replace("%server%", serverName)
                     .replace("%user%", userID);
-            e.response(msg);
+            event.response(msg);
         }
 
 

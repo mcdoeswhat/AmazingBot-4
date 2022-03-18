@@ -4,6 +4,7 @@ import me.albert.amazingbot.AmazingBot;
 import me.albert.amazingbot.bot.Bot;
 import me.albert.amazingbot.events.message.GroupMessageEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,26 +22,27 @@ public class OnBind implements Listener {
     private static final HashSet<Long> tempUser = new HashSet<>();
 
     @EventHandler
-    public void onGroup(GroupMessageEvent e) {
-        if (!AmazingBot.getInstance().getConfig().getBoolean("groups." + e.getGroupID() + ".enable_bind")) {
+    public void onGroup(GroupMessageEvent event) {
+        FileConfiguration config = AmazingBot.getInstance().getConfig();
+        if (!config.getBoolean("groups." + event.getGroupID() + ".enable_bind")) {
             return;
         }
-        String bd = AmazingBot.getInstance().getConfig().getString("bd");
-        if (e.getMsg().startsWith(bd)) {
-            String userName = e.getMsg().substring(bd.length()).trim();
+        String bd = config.getString("bd");
+        if (event.getMsg().startsWith(bd)) {
+            String userName = event.getMsg().substring(bd.length()).trim();
             if (Bukkit.getPlayerExact(userName) == null || isVanished(Bukkit.getPlayerExact(userName))) {
-                e.response("该玩家不在线!");
+                event.response("该玩家不在线!");
                 return;
             }
-            if (tempUser.contains(e.getUserID())) {
-                e.response("1小时内仅允许一次此操作!");
+            if (tempUser.contains(event.getUserID())) {
+                event.response("1小时内仅允许一次此操作!");
                 return;
             }
             Player p = Bukkit.getPlayerExact(userName);
-            sendBind(e.getUserID(), p);
-            e.response("请在游戏内根据提示完成验证!");
-            tempUser.add(e.getUserID());
-            Bukkit.getScheduler().runTaskLater(AmazingBot.getInstance(), () -> tempUser.remove(e.getUserID()), 20 * 60 * 60);
+            sendBind(event.getUserID(), p);
+            event.response("请在游戏内根据提示完成验证!");
+            tempUser.add(event.getUserID());
+            Bukkit.getScheduler().runTaskLater(AmazingBot.getInstance(), () -> tempUser.remove(event.getUserID()), 20 * 60 * 60);
         }
     }
 
@@ -53,33 +55,33 @@ public class OnBind implements Listener {
 
 
     @EventHandler(ignoreCancelled = true)
-    public void onChat(AsyncPlayerChatEvent e) {
-        UUID uuid = e.getPlayer().getUniqueId();
+    public void onChat(AsyncPlayerChatEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
         if (!binds.containsKey(uuid)) {
             return;
         }
-        if (e.getMessage().startsWith("确认绑定 ")) {
-            String user = e.getMessage().substring(5);
+        if (event.getMessage().startsWith("确认绑定 ")) {
+            String user = event.getMessage().substring(5);
             Long userID = binds.get(uuid);
             if (!user.equalsIgnoreCase(String.valueOf(userID))) {
                 return;
             }
-            e.setCancelled(true);
+            event.setCancelled(true);
             binds.remove(uuid);
             Bot.getApi().setBind(userID, uuid);
-            e.getPlayer().sendMessage("§a绑定成功!");
+            event.getPlayer().sendMessage("§a绑定成功!");
         }
     }
 
-    private void sendBind(Long userID, Player p) {
+    private void sendBind(Long userID, Player player) {
         List<String> messages = AmazingBot.getInstance().getConfig().getStringList("messages.bind");
         for (String s : messages) {
             s = s.replace("&", "§")
                     .replace("%user%", String.valueOf(userID));
-            p.sendMessage(s);
+            player.sendMessage(s);
         }
-        binds.put(p.getUniqueId(), userID);
-        Bukkit.getScheduler().runTaskLater(AmazingBot.getInstance(), () -> binds.remove(p.getUniqueId()), 20 * 60);
+        binds.put(player.getUniqueId(), userID);
+        Bukkit.getScheduler().runTaskLater(AmazingBot.getInstance(), () -> binds.remove(player.getUniqueId()), 20 * 60);
 
     }
 

@@ -16,6 +16,10 @@ public class Friend {
         return Bot.getApi().sendPrivateMsg(user_id, msg, auto_escape);
     }
 
+    public boolean delete(){
+        return Bot.getApi().deleteFriend(user_id);
+    }
+
     public String getRemark() {
         return remark;
     }
