@@ -21,6 +21,49 @@ public class MsgUtil {
         }
     }
 
+    /**
+     * @param str 消息
+     * @return 转义后消息字符串
+     */
+    public static String formatMsg(String str) {
+        return str.replace("&", "&amp;")
+                .replace("[", "&#91;")
+                .replace("]", "&#93;");
+    }
+
+    /**
+     * @param str 消息
+     * @return 转义前消息字符串
+     */
+    public static String deFormatMsg(String str) {
+        return str.replace("&amp;", "&")
+                .replace("&#91;", "[")
+                .replace("&#93;", "]");
+    }
+
+    /**
+     * @param str CQ码内部字符串
+     * @return 转义后字符串
+     */
+    public static String formatCQCode(String str) {
+        return str.replace("&", "&amp;")
+                .replace("[", "&#91;")
+                .replace("]", "&#93;")
+                .replace(",", "&#44;");
+    }
+
+    /**
+     * @param str CQ码内部字符串
+     * @return 转义前字符串
+     */
+    public static String deFormatCQCode(String str) {
+        return str.replace("&amp;", "&")
+                .replace("&#91;", "[")
+                .replace("&#93;", "]")
+                .replace("&#44;", ",");
+    }
+
+
 
     /**
      * @param file 绝对路径，例如 file:///C:\\Users\Richard\Pictures\1.png
@@ -121,20 +164,6 @@ public class MsgUtil {
         return "[CQ:xml,data=" + xml + "]";
     }
 
-    public static String formatCQCode(String str) {
-        return str.replace("&", "&amp;")
-                .replace("[", "&#91;")
-                .replace("]", "&#93;")
-                .replace(",", "&#44;");
-    }
-
-    public static String deFormatCQCode(String str) {
-        return str.replace("&amp;", "&")
-                .replace("&#91;", "[")
-                .replace("&#93;", "]")
-                .replace("&#44;", ",");
-    }
-
     /**
      * @param json  json内容, json的所有字符串记得实体化处理
      *              json中的字符串需要进行转义 :
@@ -142,7 +171,7 @@ public class MsgUtil {
      *              "&"=> &amp;
      *              "["=> &#91;
      *              "]"=> &#93;
-     *              否则无法正确得到解析,使用上方sormatString方法
+     *              否则无法正确得到解析,使用上方formatCQCode方法
      * @param resid 建议填0, 走小程序通道, 其他走富文本通道发送
      */
     public static String getJsonMsg(String json, int resid) {
