@@ -98,7 +98,7 @@ public class BotClient extends WebSocketClient {
 
     @Override
     public void onMessage(String msg) {
-        if (!instance.isEnabled()) {
+        if (!instance.isEnabled() || Bot.getClient() != this) {
             this.close();
             return;
         }
@@ -143,6 +143,9 @@ public class BotClient extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
+        if (Bot.getClient() != this) {
+            this.close();
+        }
         AmazingBot.getInstance().getLogger().info("§a机器人连接成功!");
         callEvent(new WebSocketConnectedEvent());
     }
@@ -152,15 +155,14 @@ public class BotClient extends WebSocketClient {
     public void onClose(int code, String reason, boolean remote) {
         AmazingBot.getInstance().getLogger().warning("机器人连接关闭: " + (remote ? "remote peer" : "us") + " Code: " + code + " Reason: " + reason);
         int delay = instance.getConfig().getInt("main.auto_reconnect");
-        synchronized (AmazingBot.getInstance()) {
-            if (instance.isEnabled() && code != 1000) {
-                if (this.isOpen()) {
+        if (instance.isEnabled() && code != 1000) {
+            AmazingBot.getInstance().getLogger().info("§a将在" + delay + "秒后再次尝试连接");
+            taskID = Bukkit.getScheduler().runTaskLater(instance, () -> {
+                if (Bot.getClient() != this) {
                     return;
                 }
-                AmazingBot.getInstance().getLogger().info("§a将在" + delay + "秒后再次尝试连接");
-                Bukkit.getScheduler().cancelTask(taskID);
-                taskID = Bukkit.getScheduler().runTaskLater(instance, this::reconnect, 20L * delay).getTaskId();
-            }
+                reconnect();
+            }, 20L * delay).getTaskId();
         }
     }
 

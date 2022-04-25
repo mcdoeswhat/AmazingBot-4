@@ -45,6 +45,9 @@ public class Bot {
         Bot.api = api;
     }
 
+    public static BotClient getClient() {
+        return client;
+    }
 
     public static Boolean getConnected() {
         return !client.isClosed();

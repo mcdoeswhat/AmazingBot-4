@@ -64,7 +64,6 @@ public class MsgUtil {
     }
 
 
-
     /**
      * @param file 绝对路径，例如 file:///C:\\Users\Richard\Pictures\1.png
      *             网络 URL，例如 http://i1.piimg.com/567571/fdd6e7b6d93f1ef0.jpg
