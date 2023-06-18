@@ -1,5 +1,5 @@
 # AmazingBot-4
-https://www.mcsky.net/thread-72-1-1.html
+https://bbs.mcsky.net/resources/show/648e7d8bdcbef364991942c3
 
 Bukkit机器人插件
 基于onebot-11协议
