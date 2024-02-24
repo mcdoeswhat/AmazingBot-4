@@ -2,6 +2,8 @@ package me.albert.amazingbot.bot;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonArray;
 import me.albert.amazingbot.events.ABEvent;
 import me.albert.amazingbot.events.message.GroupMessageEvent;
 import me.albert.amazingbot.events.message.MessageReceiveEvent;
@@ -45,6 +47,18 @@ public class BotEventParser {
     }
 
     public <T extends ABEvent> T parse(Class<T> eventClass) {
+        JsonElement messageElement = object.get("message");
+        if (messageElement != null && messageElement.isJsonArray()) {
+            JsonArray messageArray = messageElement.getAsJsonArray();
+            StringBuilder messageBuilder = new StringBuilder();
+            for (JsonElement element : messageArray) {
+                JsonObject messageObject = element.getAsJsonObject();
+                JsonObject dataObject = messageObject.get("data").getAsJsonObject();
+                String text = dataObject.get("text").getAsString();
+                messageBuilder.append(text);
+            }
+            object.addProperty("message", messageBuilder.toString());
+        }
         return gson.fromJson(object, eventClass);
     }
 
